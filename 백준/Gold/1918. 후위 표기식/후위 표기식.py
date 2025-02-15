@@ -1,28 +1,41 @@
-def infix_to_postfix(expression):
-    precedence = {'+': 1, '-': 1, '*': 2, '/': 2, '(': 0}  # 연산자 우선순위
-    stack = []  # 연산자를 저장할 스택
-    result = []  # 후위 표기식 결과
+# 탐색의 순위가 있음
+
+# 중위 표기식을 후위 표기식으로 변경
+
+def solution(expression):
+
+    precedence = {'+':1, '-':1, '*':2, '/':2 , '(':0} # 연산자 우선순위
+    stack = [] # 연산자를 스택에 저장하고 꺼내는 방식으로
+    result = [] #결과값 리스트
 
     for char in expression:
-        if char.isalpha():  # 피연산자 (A-Z) 그대로 추가
+        if char.isalpha():
             result.append(char)
-        elif char == '(':  # 여는 괄호는 스택에 push
+        
+        elif char == '(':
             stack.append(char)
-        elif char == ')':  # 닫는 괄호가 나오면 '('를 만날 때까지 pop
-            while stack and stack[-1] != '(':
+        
+        elif char == ')': # 닫는 괄호가 나오면,
+            #여는 괄호가 아니면, 
+            while stack and stack [-1] != '(':
                 result.append(stack.pop())
-            if stack:  # 스택이 비어있지 않으면 '(' 제거
+                
+            if stack: # 여는 괄호 제거
                 stack.pop()
-        else:  # 연산자 처리 (+, -, *, /)
-            while stack and precedence.get(stack[-1], -1) >= precedence.get(char, -1):  # 우선순위 비교
+            #그 외 연산자를 만나면
+        else:
+            while stack and precedence.get(stack[-1],-1) >= precedence.get(char,-1):
+                #연산자 우선순위가 더 크다면,
                 result.append(stack.pop())
+                #아니라면,
             stack.append(char)
-
-    while stack:  # 스택에 남아있는 연산자 모두 출력
+    while stack:
         result.append(stack.pop())
-
+        #스택에 남아있는 연산자 모두 출력함
+        
     return ''.join(result)
 
-# 입력 받기
-expression = input().strip()  # sys.stdin.readline() 대신 input() 사용
-print(infix_to_postfix(expression))  # 후위 표기식 변환 후 출력
+expression = input().strip()
+print(solution(expression))
+                
+                
