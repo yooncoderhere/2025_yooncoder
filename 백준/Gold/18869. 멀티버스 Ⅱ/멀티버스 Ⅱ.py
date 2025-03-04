@@ -11,7 +11,7 @@ def solution(k,n, universes):
     result = 0
     
     for universe in universes:
-        sorted_uni = sorted(set(universe)) # 중복 제거 후 정렬
+        sorted_uni = sorted(universe) # 중복 제거 후 정렬
         #중복을 제거 해도 되나..
         indxe_map = {value : idx for idx, value in enumerate(sorted_uni)}
         pattern = tuple(indxe_map[x] for x in universe)
